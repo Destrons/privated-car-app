@@ -1,11 +1,15 @@
-import { createConnection } from "typeorm";
-import app from "./app";
+import express from 'express';
+import dotenv from 'dotenv';
+dotenv.config(); // Carrega as variáveis de ambiente
 
-createConnection()
-  .then(() => {
-    console.log("Connected to the database");
-    app.listen(8080, () => {
-      console.log("Server running on port 8080");
-    });
-  })
-  .catch((error) => console.log(error));
+import { calculateCost } from './controllers/driverController';
+
+const app = express();
+app.use(express.json());
+
+app.post("/calculate-cost", calculateCost);
+
+const port = 8080;
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
+});
