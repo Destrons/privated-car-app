@@ -2,13 +2,12 @@ FROM node:18
 
 WORKDIR /app
 
-COPY ./package.json ./package-lock.json /app/
+COPY package.json package-lock.json ./
+
 RUN npm install
 
-COPY ./src /app/src
+COPY . .
 
-RUN tsc
+RUN npx tsc
 
-EXPOSE 8080
-
-CMD ["node", "dist/index.js"]
+CMD ["node", "dist/server.js"]
